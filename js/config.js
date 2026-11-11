@@ -3,5 +3,5 @@
 // le policy RLS definite in supabase/schema.sql. NON mettere MAI la service_role key.
 export const CONFIG = {
   SUPABASE_URL: '',
-  SUPABASE_ANON_KEY: '',
+  SUPABASE_ANON_KEY: 'sb_publishable_SvemAOrdp5f-z-fS3JbShw_snCWMp2o',
 };
