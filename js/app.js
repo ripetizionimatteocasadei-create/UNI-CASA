@@ -98,6 +98,8 @@ function blockHtml(b) {
     case 'ul': return `<ul>${b.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
     case 'math': return `<div class="mathblock">\\[${b.x}\\]</div>`;
     case 'def': return `<div class="def"><span class="tag">Definizione</span><b>${b.term}</b><p>${b.x}</p></div>`;
+    case 'ex': return `<div class="ex"><span class="tag">Esempio · ${b.title}</span><p>${b.x}</p></div>`;
+    case 'decode': return `<div class="decode"><span class="tag">Come si legge</span><b>${b.title}</b><dl>${b.rows.map(([s, m]) => `<dt>${s}</dt><dd>${m}</dd>`).join('')}</dl></div>`;
     case 'quote': return `<blockquote>${b.x}${b.by ? `<cite>${b.by}</cite>` : ''}</blockquote>`;
     case 'why': return `<div class="why"><span class="tag">Perché ti serve</span><p>${b.x}</p></div>`;
     case 'widget': return `<figure class="widget"><div data-widget="${b.name}"></div>${b.cap ? `<figcaption>${b.cap}</figcaption>` : ''}</figure>`;

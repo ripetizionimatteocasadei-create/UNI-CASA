@@ -97,3 +97,12 @@ details{text-align:left;margin-top:14px} summary{cursor:pointer;color:var(--cyan
 .msg{color:var(--warn)}
 @media(max-width:560px){.slider{grid-template-columns:1fr 60px}.slider span{grid-column:1/-1}.topbar{flex-direction:column;align-items:stretch;gap:4px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.ex{border-radius:var(--r);padding:14px 18px;margin:18px 0;border:1px dashed #6a5fd8;background:rgba(139,124,255,.07)}
+.ex p{margin:.3em 0 0}
+.decode{border-radius:var(--r);padding:14px 18px;margin:20px 0;border:1px solid var(--line);background:var(--panel);border-left:4px solid var(--warn)}
+.decode dl{display:grid;grid-template-columns:max-content 1fr;gap:8px 18px;margin:10px 0 0}
+.decode dt{color:var(--text)} .decode dd{margin:0;color:var(--mute);font-size:16px}
+.toggle{display:flex;align-items:center;gap:10px;margin:10px 0;color:var(--text);font-size:15px;cursor:pointer}
+.toggle input{accent-color:var(--cyan);width:18px;height:18px;flex:none}
+.lesson-page h2{margin-top:1.8em}
+@media(max-width:560px){.decode dl{grid-template-columns:1fr}.decode dd{margin-bottom:6px}}
