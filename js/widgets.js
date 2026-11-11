@@ -29,6 +29,54 @@ function arrow(g, x0, y0, x1, y1, color, w = 3) {
 }
 
 export const widgets = {
+  neuron(el) {
+    const out = document.createElement('div'); out.className = 'readout mono';
+    let x1 = 0.8, x2 = 0.1, w1 = 2, w2 = -3, b = 0.5;
+    const f = v => v.toFixed(1);
+    const draw = () => {
+      const z = w1 * x1 + w2 * x2 + b;
+      out.innerHTML = `z = (${f(w1)}·${f(x1)}) + (${f(w2)}·${f(x2)}) + ${f(b)} = <b>${z.toFixed(2)}</b><br>ReLU(z) = max(0, z) = <b style="color:${z > 0 ? C.ok : C.warn}">${Math.max(0, z).toFixed(2)}</b> ${z > 0 ? '(acceso)' : '(spento)'}`;
+    };
+    slider(el, 'ingresso x₁ (bel tempo)', 0, 1, 0.1, x1, f, v => { x1 = v; draw(); });
+    slider(el, 'ingresso x₂ (pioggia)', 0, 1, 0.1, x2, f, v => { x2 = v; draw(); });
+    slider(el, 'peso w₁', -5, 5, 0.1, w1, f, v => { w1 = v; draw(); });
+    slider(el, 'peso w₂', -5, 5, 0.1, w2, f, v => { w2 = v; draw(); });
+    slider(el, 'bias b', -3, 3, 0.1, b, f, v => { b = v; draw(); });
+    el.appendChild(out); draw();
+  },
+
+  nonlin(el) {
+    const { g, w, h } = canvas(el, 520, 280);
+    const info = document.createElement('div'); info.className = 'readout mono';
+    let a1 = 2, c1 = 1, a2 = 3, c2 = -4, relu = false;
+    const X0 = -3, X1 = 3, Y0 = -12, Y1 = 12;
+    const px = v => 20 + (v - X0) / (X1 - X0) * (w - 40), py = v => h - 20 - (Math.max(Y0, Math.min(Y1, v)) - Y0) / (Y1 - Y0) * (h - 40);
+    const draw = () => {
+      g.fillStyle = C.bg; g.fillRect(0, 0, w, h);
+      g.strokeStyle = C.grid; g.lineWidth = 1;
+      g.beginPath(); g.moveTo(px(0), 0); g.lineTo(px(0), h); g.moveTo(0, py(0)); g.lineTo(w, py(0)); g.stroke();
+      const plot = (fn, color, dash) => {
+        g.setLineDash(dash); g.strokeStyle = color; g.lineWidth = 3; g.beginPath();
+        for (let x = X0; x <= X1 + 1e-9; x += 0.02) (x === X0 ? g.moveTo : g.lineTo).call(g, px(x), py(fn(x)));
+        g.stroke(); g.setLineDash([]);
+      };
+      plot(x => a2 * (a1 * x + c1) + c2, relu ? C.grid : C.a, [8, 6]);
+      if (relu) plot(x => a2 * Math.max(0, a1 * x + c1) + c2, C.b, []);
+      g.font = '13px Inter'; g.fillStyle = C.text; g.fillText('x', w - 16, py(0) - 6); g.fillText('z', px(0) + 8, 16);
+      info.innerHTML = `Strato 1: y = ${a1}x ${c1 >= 0 ? '+' : '−'} ${Math.abs(c1)} &nbsp; Strato 2: z = ${a2}·${relu ? 'ReLU(y)' : 'y'} ${c2 >= 0 ? '+' : '−'} ${Math.abs(c2)}<br>` +
+        (relu ? `con ReLU: la linea <b style="color:${C.b}">si piega</b> dove y = 0 (x = ${(-c1 / a1).toFixed(2)})`
+              : `senza ReLU: z = <b>${a2 * a1}x ${a2 * c1 + c2 >= 0 ? '+' : '−'} ${Math.abs(a2 * c1 + c2)}</b> → una retta sola`);
+    };
+    slider(el, 'a₁ (pendenza strato 1)', -3, 3, 1, a1, v => v, v => { a1 = v || 1; draw(); });
+    slider(el, 'c₁ (bias strato 1)', -4, 4, 1, c1, v => v, v => { c1 = v; draw(); });
+    slider(el, 'a₂ (pendenza strato 2)', -4, 4, 1, a2, v => v, v => { a2 = v; draw(); });
+    slider(el, 'c₂ (bias strato 2)', -8, 8, 1, c2, v => v, v => { c2 = v; draw(); });
+    const t = document.createElement('label'); t.className = 'toggle';
+    t.innerHTML = '<input type="checkbox"><span>Inserisci la ReLU tra i due strati</span>';
+    t.querySelector('input').onchange = e => { relu = e.target.checked; draw(); };
+    el.appendChild(t); el.appendChild(info); draw();
+  },
+
   dot(el) {
     const { g, w, h } = canvas(el, 520, 280);
     const info = document.createElement('div'); info.className = 'readout mono';
