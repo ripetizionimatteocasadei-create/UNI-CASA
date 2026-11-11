@@ -54,15 +54,39 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1794367002.7944517,
-    "seen": 1794367100.6281526,
-    "ast_hash": "4a8889621301f5c38956ea5f0f674571",
+    "mtime": 1794367137.3017614,
+    "seen": 1794367137.9419386,
+    "ast_hash": "9c39ece74f1c24b25b4d23854287b6f3",
     "semantic_hash": ""
   },
   "index.html": {
     "mtime": 1794366840.1026442,
     "seen": 1794367100.6281538,
     "ast_hash": "56383de5779db9b896a1a95820847ea7",
+    "semantic_hash": ""
+  },
+  ".claude/settings.json": {
+    "mtime": 1794367108.9104815,
+    "seen": 1794367137.9419134,
+    "ast_hash": "acd227e338c191e7f4de125904d4db81",
+    "semantic_hash": ""
+  },
+  ".github/workflows/graphify.yml": {
+    "mtime": 1794367133.401761,
+    "seen": 1794367137.941918,
+    "ast_hash": "cda0682cb7121ef1dc222e09a2b8cf4e",
+    "semantic_hash": ""
+  },
+  "supabase/schema.sql": {
+    "mtime": 1794366840.1000512,
+    "seen": 1794367137.9419365,
+    "ast_hash": "addb3e1820d0d00112e3ac094925f494",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1794367108.9101715,
+    "seen": 1794367137.9419377,
+    "ast_hash": "67d88e9d0760c3ba54c75dfd9551c1c5",
     "semantic_hash": ""
   }
 }
