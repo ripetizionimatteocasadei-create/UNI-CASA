@@ -23,3 +23,9 @@ Settings → Pages → Source: **GitHub Actions**. Il workflow in `.github/workf
 ## Aggiungere contenuti
 Ogni modulo è un file in `content/` (lezioni a blocchi + quiz + verifica) registrato in `js/catalog.js` con la proprietà `file`.
 Formule in LaTeX con `\( ... \)` e `\[ ... \]` (usare `String.raw`).
+
+## Graphify (mappa del codice per Claude)
+`graphify-out/` contiene un grafo di conoscenza del progetto (nodi, relazioni, community): Claude lo interroga con
+`graphify query/path/explain` invece di rileggere tutti i file. Si aggiorna da solo dopo ogni commit (git hook locali)
+e a ogni push su `main` (workflow `graphify.yml`). Manuale: `pip install graphifyy && graphify update .`.
+Vista interattiva: `graphify-out/graph.html`.
